@@ -35,7 +35,9 @@ export const resolvers = {
       });
 
       if (!response.ok) {
-        throw new Error('DeepSeek API 调用失败');
+        const errText = await response.text();
+        console.error("DeepSeek API error:", errText);
+        throw new Error("DeepSeek API 调用失败: " + errText);
       }
 
       const data = await response.json();
