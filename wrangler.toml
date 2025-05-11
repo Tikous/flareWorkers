@@ -2,5 +2,7 @@ name = "deepseek-chat-worker"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
 
+compatibility_flags = ["nodejs_compat"]
+
 [vars]
 DEEPSEEK_API_KEY = ""  # 将在 CloudFlare 控制台中设置 
