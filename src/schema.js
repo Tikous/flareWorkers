@@ -21,12 +21,15 @@ export const resolvers = {
   },
   Mutation: {
     sendMessage: async (_, { content } ) => {
+
+      const apiKey = content.env.DEEPSEEK_API_KEY;
+
       // 调用 DeepSeek API
       const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${env.DEEPSEEK_API_KEY}`,
+          'Authorization': `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
           messages: [{ role: 'user', content }],
