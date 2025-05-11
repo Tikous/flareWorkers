@@ -11,7 +11,6 @@ node_modules
 dist
 dist-ssr
 .wrangler
-.env
 *.local
 
 # Editor directories and files
