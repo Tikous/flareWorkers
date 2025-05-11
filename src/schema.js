@@ -20,9 +20,8 @@ export const resolvers = {
     messages: () => [], // 由于不需要历史记录，始终返回空数组
   },
   Mutation: {
-    sendMessage: async (_, { content } ) => {
-
-      const apiKey = content.env.DEEPSEEK_API_KEY;
+    sendMessage: async (_, { content }, context) => {
+      const apiKey = context.env.DEEPSEEK_API_KEY;
 
       // 调用 DeepSeek API
       const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
