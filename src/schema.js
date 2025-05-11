@@ -20,13 +20,13 @@ export const resolvers = {
     messages: () => [], // 由于不需要历史记录，始终返回空数组
   },
   Mutation: {
-    sendMessage: async (_, { content }, { DEEPSEEK_API_KEY }) => {
+    sendMessage: async (_, { content } ) => {
       // 调用 DeepSeek API
       const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+          'Authorization': `Bearer ${env.DEEPSEEK_API_KEY}`,
         },
         body: JSON.stringify({
           messages: [{ role: 'user', content }],
