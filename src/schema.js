@@ -1,0 +1,48 @@
+import { gql } from 'graphql-tag';
+
+export const typeDefs = gql`
+  type Message {
+    content: String!
+    role: String!
+  }
+
+  type Query {
+    messages: [Message!]!
+  }
+
+  type Mutation {
+    sendMessage(content: String!): Message!
+  }
+`;
+
+export const resolvers = {
+  Query: {
+    messages: () => [], // 由于不需要历史记录，始终返回空数组
+  },
+  Mutation: {
+    sendMessage: async (_, { content }, { DEEPSEEK_API_KEY }) => {
+      // 调用 DeepSeek API
+      const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
+        },
+        body: JSON.stringify({
+          messages: [{ role: 'user', content }],
+          model: 'deepseek-chat',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('DeepSeek API 调用失败');
+      }
+
+      const data = await response.json();
+      return {
+        content: data.choices[0].message.content,
+        role: 'assistant',
+      };
+    },
+  },
+}; 
