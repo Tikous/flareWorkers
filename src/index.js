@@ -11,7 +11,7 @@ const server = new ApolloServer({ typeDefs, resolvers });
 router.post('/api/graphql', async (request, env) => {
   try {
     const { query, variables } = await request.json();
-    const result = await server.executeOperation({ query, variables }, { contextValue: { DEEPSEEK_API_KEY: env.DEEPSEEK_API_KEY } });
+    const result = await server.executeOperation({ query, variables }, { contextValue: { env } });
     return new Response(JSON.stringify(result.body.singleResult), {
       headers: {
         "Content-Type": "application/json",
