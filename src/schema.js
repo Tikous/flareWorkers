@@ -22,7 +22,15 @@ export const resolvers = {
   Mutation: {
     sendMessage: async (_, { content }, context) => {
       const apiKey = context.env.DEEPSEEK_API_KEY;
-
+      
+      // 调试：输出 API KEY 前几个字符
+      console.log("API Key starts with:", apiKey);
+      
+      // 确保 API KEY 格式正确
+      if (!apiKey || !apiKey.startsWith('sk-')) {
+        throw new Error('DEEPSEEK_API_KEY 环境变量格式不正确，需以 sk- 开头');
+      }
+      
       // 调用 DeepSeek API
       const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
         method: 'POST',
