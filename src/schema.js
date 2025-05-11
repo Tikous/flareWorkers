@@ -28,7 +28,7 @@ export const resolvers = {
       
       // 确保 API KEY 格式正确
       if (!apiKey || !apiKey.startsWith('sk-')) {
-        throw new Error('DEEPSEEK_API_KEY 环境变量格式不正确，需以 sk- 开头');
+        throw new Error(apiKey);
       }
       
       // 调用 DeepSeek API
