@@ -21,7 +21,7 @@ export const resolvers = {
   },
   Mutation: {
     sendMessage: async (_, { content }, context) => {
-      const apiKey = context.env.DEEPSEEK_API_KEY;
+      const apiKey = context.env['DEEPSEEK_API_KEY'];
       
       // 调试：输出 API KEY 前几个字符
       console.log("API Key starts with:", apiKey);

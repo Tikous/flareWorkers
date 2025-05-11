@@ -1,1 +1,2 @@
 # flareWorkers
+npx wrangler dev
